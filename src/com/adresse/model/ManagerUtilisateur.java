@@ -82,6 +82,34 @@ public class ManagerUtilisateur {
         return userUpdate;
     }
 
+    public static Utilisateur delete(Utilisateur user) throws SQLException {
+        Utilisateur userGone = new Utilisateur();
+
+        try {
+            // Connexion BDD
+            Statement smt = connexion.createStatement();
+
+            // Prépa requête
+            String req = "DELETE users FROM users WHERE email = ?";
+            PreparedStatement preparedStatement = connexion.prepareStatement(req);
+
+            //Bind paramètres
+            preparedStatement.setString(1,user.getEmail());
+
+            //Exe requête
+            int row = preparedStatement.executeUpdate();
+            if(row > 0){ //Requête :)
+                userGone.setEmail(user.getEmail());
+            }
+            System.out.println("Utilisateur supprimé");
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return userGone;
+    }
+
     public static Utilisateur findByMail(Utilisateur user) throws SQLException {
         Utilisateur userRecup = new Utilisateur();
         try {
