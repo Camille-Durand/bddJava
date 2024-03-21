@@ -13,4 +13,4 @@ CDA: exercices BDD en Java
 - getConnexion(): permet la connexion à la BDD
 
 ### Utilisateur.java
-- toString(): permet de renvoyer le nom et le prénom de l'utilisateur
+- toString(): permet de renvoyer le nom et le prénom de l'utilisateur dans une chaîne de caractères
