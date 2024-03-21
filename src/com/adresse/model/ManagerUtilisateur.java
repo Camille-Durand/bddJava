@@ -72,7 +72,7 @@ public class ManagerUtilisateur {
                 userUpdate.setEmail(user.getEmail());
             }
 
-            System.out.println("Le nom et le prénom de l'utilisateur ont été modifié avec succès :)");
+            System.out.println("Le nom et le prénom de l'utilisateur (" + user.getEmail() + ") ont été modifié avec succès :)");
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
