@@ -6,6 +6,7 @@ import java.util.Objects;
 
 public class Main {
     public static void main(String[] args) throws SQLException {
+        /*
         Utilisateur user = new Utilisateur("Test", "Testing", "Test@ing.com", "1234");
 
         // Vérification compte existant
@@ -19,5 +20,10 @@ public class Main {
 
         // Update compte existant
         ManagerUtilisateur.update(user);
+
+         */
+
+        System.out.println(ManagerUtilisateur.findAll());
+
     }
 }
