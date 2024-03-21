@@ -53,17 +53,9 @@ public class ManagerUtilisateur {
             PreparedStatement preparedStatement = connexion.prepareStatement(req);
 
             //Bind paramètres
-            Scanner scannerName = new Scanner(System.in);
-            System.out.print("Nom: ");
-            String newName = scannerName.nextLine();
-            preparedStatement.setString(1,newName);
-
-            Scanner scannerFirstName = new Scanner(System.in);
-            System.out.print("Prénom: ");
-            String newFirstName = scannerFirstName.nextLine();
-            preparedStatement.setString(2,newFirstName);
-
-            preparedStatement.setString(3,user.getEmail());
+            preparedStatement.setString(1, user.getName());
+            preparedStatement.setString(2, user.getFirstname());
+            preparedStatement.setString(3, user.getEmail());
 
             //Exe requête
             int row = preparedStatement.executeUpdate();
@@ -71,6 +63,9 @@ public class ManagerUtilisateur {
                 userUpdate.setName(user.getName());
                 userUpdate.setFirstname(user.getFirstname());
                 userUpdate.setEmail(user.getEmail());
+                if(user.getId()!=0) {
+                    userUpdate.setId(user.getId());
+                }
             }
 
             System.out.println("Le nom et le prénom de l'utilisateur (" + user.getEmail() + ") ont été modifié avec succès :)");
