@@ -1,6 +1,7 @@
 package com.adresse.model;
 
 import com.adresse.model.Utilisateur;
+import com.adresse.model.ManagerUtilisateur;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import javax.swing.*;
 import javax.swing.plaf.FontUIResource;
@@ -8,6 +9,7 @@ import javax.swing.text.StyleContext;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.Locale;
 
 public class UserForm extends JDialog{
@@ -46,7 +48,7 @@ public class UserForm extends JDialog{
         });
     }
 
-    public void createUser(){
+    public void createUser() {
         String name = tfName.getText();
         String firstname = tfFirstname.getText();
         String email = tfEmail.getText();
@@ -57,11 +59,17 @@ public class UserForm extends JDialog{
             if(password.equals(verify)){
                 password = BCrypt.hashpw(password, BCrypt.gensalt());
                 Utilisateur user = new Utilisateur(name,firstname,email,password);
+
+                System.out.println(user);
+                try {
+                    ManagerUtilisateur.create(user);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
                 JOptionPane.showMessageDialog(null,
-                        "Compte utilisateur créé avec succès :)",
+                        "Compte utilisateur créé avec succès et envoyé dans la BDD :)",
                         "Compte créé",
                         JOptionPane.INFORMATION_MESSAGE);
-                System.out.println(user);
             } else {
                 JOptionPane.showMessageDialog(null,
                         "Les 2 mots de passe ne correspondent pas",
