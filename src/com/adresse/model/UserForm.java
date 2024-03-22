@@ -30,48 +30,56 @@ public class UserForm extends JDialog{
         btValid.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String name = tfName.getText();
-                String firstname = tfFirstname.getText();
-                String email = tfEmail.getText();
-                String password = String.valueOf(pfPassword.getPassword());
-                String verify = String.valueOf(pfVerify.getPassword());
-
-                if(!name.isBlank() && !firstname.isBlank() && !email.isBlank() && !password.isBlank()){
-                    if(password.equals(verify)){
-                        Utilisateur user = new Utilisateur(name,firstname,email,password);
-                        JOptionPane.showMessageDialog(null,
-                                "Compte utilisateur créé avec succès :)",
-                                "Compte créé",
-                                JOptionPane.INFORMATION_MESSAGE);
-                        System.out.println(user);
-                    } else {
-                        JOptionPane.showMessageDialog(null,
-                                "Les 2 mots de passe ne correspondent pas",
-                                "Erreur",
-                                JOptionPane.ERROR_MESSAGE);
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(null,
-                            "Veuillez remplir tous les champs",
-                            "Erreur",
-                            JOptionPane.ERROR_MESSAGE);
-                }
+                createUser();
             }
         });
         btCancel.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                tfName.setText("");
-                tfFirstname.setText("");
-                tfEmail.setText("");
-                pfPassword.setText("");
-                pfVerify.setText("");
-                dispose();
-                JOptionPane.showMessageDialog(null,
-                        "Création de compte utilisateur annulée",
-                        "Création de compte annulée",
-                        JOptionPane.INFORMATION_MESSAGE);
+                cancelUser();
             }
         });
+    }
+
+    public void createUser(){
+        String name = tfName.getText();
+        String firstname = tfFirstname.getText();
+        String email = tfEmail.getText();
+        String password = String.valueOf(pfPassword.getPassword());
+        String verify = String.valueOf(pfVerify.getPassword());
+
+        if(!name.isBlank() && !firstname.isBlank() && !email.isBlank() && !password.isBlank()){
+            if(password.equals(verify)){
+                Utilisateur user = new Utilisateur(name,firstname,email,password);
+                JOptionPane.showMessageDialog(null,
+                        "Compte utilisateur créé avec succès :)",
+                        "Compte créé",
+                        JOptionPane.INFORMATION_MESSAGE);
+                System.out.println(user);
+            } else {
+                JOptionPane.showMessageDialog(null,
+                        "Les 2 mots de passe ne correspondent pas",
+                        "Erreur",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null,
+                    "Veuillez remplir tous les champs",
+                    "Erreur",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    public void cancelUser(){
+        tfName.setText("");
+        tfFirstname.setText("");
+        tfEmail.setText("");
+        pfPassword.setText("");
+        pfVerify.setText("");
+        dispose();
+        JOptionPane.showMessageDialog(null,
+                "Création de compte utilisateur annulée",
+                "Création de compte annulée",
+                JOptionPane.INFORMATION_MESSAGE);
     }
 }
