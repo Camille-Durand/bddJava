@@ -1,9 +1,14 @@
 package com.adresse.model;
 
+import com.adresse.model.Utilisateur;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import javax.swing.*;
+import javax.swing.plaf.FontUIResource;
+import javax.swing.text.StyleContext;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Locale;
 
 public class UserForm extends JDialog{
     private JLabel jlName; // ok
@@ -48,8 +53,9 @@ public class UserForm extends JDialog{
         String password = String.valueOf(pfPassword.getPassword());
         String verify = String.valueOf(pfVerify.getPassword());
 
-        if(!name.isBlank() && !firstname.isBlank() && !email.isBlank() && !password.isBlank()){
+        if(!name.isEmpty() && !firstname.isEmpty() && !email.isEmpty() && !password.isEmpty()){
             if(password.equals(verify)){
+                password = BCrypt.hashpw(password, BCrypt.gensalt());
                 Utilisateur user = new Utilisateur(name,firstname,email,password);
                 JOptionPane.showMessageDialog(null,
                         "Compte utilisateur créé avec succès :)",
