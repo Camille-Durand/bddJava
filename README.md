@@ -14,3 +14,7 @@ CDA: exercices BDD en Java
 
 ### Utilisateur.java
 - toString(): permet de renvoyer le nom et le prénom de l'utilisateur dans une chaîne de caractères
+
+### UserForm.java
+- createUSer(): permet grâce à un formulaire de créé un utilisateur si tous les champs sont remplis
+- cancelUser(): permet d'annuler la création d'un utilisateur, fermant le formulaire au passage
