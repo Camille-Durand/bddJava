@@ -50,7 +50,13 @@ public class UserForm extends JDialog{
         btCancel.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                
+                tfName.setText("");
+                tfFirstname.setText("");
+                tfEmail.setText("");
+                pfPassword.setText("");
+                pfVerify.setText("");
+                dispose();
+                System.out.println("Création de compte annulée");
             }
         });
     }
