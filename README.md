@@ -1,6 +1,13 @@
 # bddJava
 CDA: exercices BDD en Java
 
+## Objectifs
+-> Pouvoir créer un utilisateur avec son nom, son prénom, un mail et un mot de passe grâce à un formulaire
+
+-> Pouvoir envoyer cet utilisateur dans une BDD
+
+-> Pouvoir gérer les utilisateurs présents dans la BDD
+
 ## Méthodes disponibles
 ### Database.java
 - **getConnexion()** : permet la connexion à la BDD
