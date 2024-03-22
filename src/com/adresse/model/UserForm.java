@@ -44,6 +44,8 @@ public class UserForm extends JDialog{
                     } else {
                         System.out.println("Les 2 mots de passe de correspondent pas");
                     }
+                } else {
+                    System.out.println("Veuillez remplir tous les champs");
                 }
             }
         });
