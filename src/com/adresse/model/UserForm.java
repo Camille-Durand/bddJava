@@ -39,13 +39,22 @@ public class UserForm extends JDialog{
                 if(!name.isBlank() && !firstname.isBlank() && !email.isBlank() && !password.isBlank()){
                     if(password.equals(verify)){
                         Utilisateur user = new Utilisateur(name,firstname,email,password);
-                        System.out.println("Utilisateur ajouté dans la BDD avec succès :)");
+                        JOptionPane.showMessageDialog(null,
+                                "Compte utilisateur créé avec succès :)",
+                                "Compte créé",
+                                JOptionPane.INFORMATION_MESSAGE);
                         System.out.println(user);
                     } else {
-                        System.out.println("Les 2 mots de passe de correspondent pas");
+                        JOptionPane.showMessageDialog(null,
+                                "Les 2 mots de passe ne correspondent pas",
+                                "Erreur",
+                                JOptionPane.ERROR_MESSAGE);
                     }
                 } else {
-                    System.out.println("Veuillez remplir tous les champs");
+                    JOptionPane.showMessageDialog(null,
+                            "Veuillez remplir tous les champs",
+                            "Erreur",
+                            JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
@@ -58,7 +67,10 @@ public class UserForm extends JDialog{
                 pfPassword.setText("");
                 pfVerify.setText("");
                 dispose();
-                System.out.println("Création de compte annulée");
+                JOptionPane.showMessageDialog(null,
+                        "Création de compte utilisateur annulée",
+                        "Création de compte annulée",
+                        JOptionPane.INFORMATION_MESSAGE);
             }
         });
     }
