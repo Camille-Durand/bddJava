@@ -22,7 +22,7 @@ public class GuiForm extends JDialog{
         try {
             for(int i = 0; i < ManagerUtilisateur.findAll().size(); i++){
                 jlInfo.setText(ManagerUtilisateur.findAll().get(i).getName() + " " + ManagerUtilisateur.findAll().get(i).getFirstname());
-                
+
             }
 
         } catch (SQLException e) {
