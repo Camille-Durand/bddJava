@@ -74,7 +74,18 @@ public class UserForm extends JDialog{
                         Utilisateur user = new Utilisateur(name,firstname,email,password);
                         System.out.println(user);
                         try {
-                            ManagerUtilisateur.create(user);
+
+                            // SI l'utilisateur n'existe pas déjà
+                            if(ManagerUtilisateur.findByMail(user).getId() == 0){
+                                ManagerUtilisateur.create(user);
+
+                            } else {
+                                JOptionPane.showMessageDialog(null,
+                                        "Ce compte existe déjà",
+                                        "Erreur",
+                                        JOptionPane.ERROR_MESSAGE);
+                            }
+                            
                         } catch (SQLException e) {
                             throw new RuntimeException(e);
                         }
