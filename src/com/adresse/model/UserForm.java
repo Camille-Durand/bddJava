@@ -85,7 +85,7 @@ public class UserForm extends JDialog{
                                         "Erreur",
                                         JOptionPane.ERROR_MESSAGE);
                             }
-                            
+
                         } catch (SQLException e) {
                             throw new RuntimeException(e);
                         }
