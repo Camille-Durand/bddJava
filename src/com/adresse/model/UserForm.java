@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.Locale;
+import java.util.regex.*;
 
 public class UserForm extends JDialog{
     private JLabel jlName; // ok
@@ -26,6 +27,9 @@ public class UserForm extends JDialog{
     private JPanel jpMain; // ok
     private JLabel jlVerify; // ok
     private JPasswordField pfVerify; // ok
+
+    public static final String REGEX_MAIL = "^[\\w!#$%&amp;'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&amp;'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
+    public static final String REGEX_PASSWORD = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{12,}$";
 
     public UserForm(JDialog parent){
         super(parent);
@@ -55,27 +59,51 @@ public class UserForm extends JDialog{
         String password = String.valueOf(pfPassword.getPassword());
         String verify = String.valueOf(pfVerify.getPassword());
 
+        // SI Les champs sont remplis
         if(!name.isEmpty() && !firstname.isEmpty() && !email.isEmpty() && !password.isEmpty()){
-            if(password.equals(verify)){
-                password = BCrypt.hashpw(password, BCrypt.gensalt());
-                Utilisateur user = new Utilisateur(name,firstname,email,password);
 
-                System.out.println(user);
-                try {
-                    ManagerUtilisateur.create(user);
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
+            // SI le mail est valide
+            if(email.matches(REGEX_MAIL)){
+
+                // SI le mot de passe est le même que dans la confirmation de mot de passe
+                if(password.equals(verify)){
+
+                    // SI le mot de passe est valide
+                    if(password.matches(REGEX_PASSWORD)){
+                        password = BCrypt.hashpw(password, BCrypt.gensalt());
+                        Utilisateur user = new Utilisateur(name,firstname,email,password);
+                        System.out.println(user);
+                        try {
+                            ManagerUtilisateur.create(user);
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
+                        JOptionPane.showMessageDialog(null,
+                                "Compte utilisateur créé avec succès et envoyé dans la BDD :)",
+                                "Compte créé",
+                                JOptionPane.INFORMATION_MESSAGE);
+
+                    } else {
+                        JOptionPane.showMessageDialog(null,
+                                "Mot de passe invalide",
+                                "Erreur",
+                                JOptionPane.ERROR_MESSAGE);
+                    }
+
+                } else {
+                    JOptionPane.showMessageDialog(null,
+                            "Les 2 mots de passe ne correspondent pas",
+                            "Erreur",
+                            JOptionPane.ERROR_MESSAGE);
                 }
-                JOptionPane.showMessageDialog(null,
-                        "Compte utilisateur créé avec succès et envoyé dans la BDD :)",
-                        "Compte créé",
-                        JOptionPane.INFORMATION_MESSAGE);
+
             } else {
                 JOptionPane.showMessageDialog(null,
-                        "Les 2 mots de passe ne correspondent pas",
+                        "Adresse mail invalide",
                         "Erreur",
                         JOptionPane.ERROR_MESSAGE);
             }
+
         } else {
             JOptionPane.showMessageDialog(null,
                     "Veuillez remplir tous les champs",
